@@ -66,9 +66,11 @@ export function SecurityProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (state) => {
-      if (state !== "active") {
+      if (state === "background") {
+        // Only lock when fully backgrounded, not on transient 'inactive'
+        // states (iOS control-centre swipe, incoming call overlay, etc.)
         setUnlocked(false);
-      } else {
+      } else if (state === "active") {
         void refresh();
       }
     });

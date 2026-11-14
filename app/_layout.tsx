@@ -34,7 +34,7 @@ function RootLayoutNav() {
       router.replace('/lock');
       return;
     }
-    if (route === 'lock' && unlocked) {
+    if (route === 'lock' && (!lockEnabled || unlocked)) {
       router.replace('/collect');
       return;
     }
